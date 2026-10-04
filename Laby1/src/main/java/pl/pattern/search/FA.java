@@ -30,6 +30,13 @@ public class FA {
         int m = pattern.length();
 
         int[][] transition = new int[m + 1][128];
+
+        for (int state = 0; state <=m; state++) {
+            for (int c = 0; c < 128; c++) {
+                transition[state][c] = getNextState(pattern, state, (char) c);
+            }
+        }
+
         return transition;
     }
 
