@@ -32,4 +32,22 @@ public class FA {
         int[][] transition = new int[m + 1][128];
         return transition;
     }
+
+    private static int getNextState(String pattern, int state, char c) {
+        String current = pattern.substring(0, state) + c;
+
+        for (int length = Math.min(pattern.length(), current.length());
+             length >= 0;
+             length--) {
+
+            String prefix = pattern.substring(0, length);
+            String suffix = current.substring(current.length() - length);
+
+            if( prefix.equals(suffix)) {
+                return length;
+            }
+        }
+
+        return 0;
+    }
 }
