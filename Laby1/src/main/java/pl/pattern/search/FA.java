@@ -21,6 +21,8 @@ public class FA {
 
             int[][] transition = buildTransitionTable(pattern);
 
+            search(text, pattern, transition);
+
         } catch (IOException e) {
             System.out.println("Nie udało się odczytać pliku");
         }
@@ -50,11 +52,26 @@ public class FA {
             String prefix = pattern.substring(0, length);
             String suffix = current.substring(current.length() - length);
 
-            if( prefix.equals(suffix)) {
+            if(prefix.equals(suffix)) {
                 return length;
             }
         }
 
         return 0;
+    }
+
+    private static void search(String text, String pattern, int[][] transition) {
+        int state = 0;
+
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.charAt(i);
+
+            state = transition[state][c];
+
+            if (state == pattern.length()) {
+                int startIndex = i - pattern.length() + 1;
+                System.out.println("Znaleziono wzorzec na pozycji: " + startIndex);
+            }
+        }
     }
 }
